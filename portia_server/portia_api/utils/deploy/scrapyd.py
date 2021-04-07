@@ -70,7 +70,8 @@ class ScrapydDeploy(BaseDeploy):
             spider, self._schedule_data(spider, args))
         request = requests.post(
             urljoin(app_settings.SCRAPYD_URL, 'schedule.json'),
-            data=schedule_data)
+            data=schedule_data,
+            headers={'Connection':'close'})
         if request.status_code != 200:
             raise JsonApiGeneralException(
                 request.status_code, request.content)
